@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net11.0</TargetFramework>
+    <RootNamespace>JIT.NuGetStrongName</RootNamespace>
+    <AssemblyName>NuGetStrongName.Tool</AssemblyName>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>nuget-strongname</ToolCommandName>
+    <PackageId>NuGetStrongName.Tool</PackageId>
+    <Description>Cross-platform CLI that strong-name signs the managed assemblies of a NuGet package and verifies the result.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Mono.Cecil" />
+    <PackageReference Include="NuGet.Protocol" />
+    <PackageReference Include="NuGet.Credentials" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/NuGetStrongName.Tool/NuGetStrongName.Tool.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/NuGetStrongName.Tool.Tests/NuGetStrongName.Tool.Tests.csproj" />
+  </Folder>
+</Solution>

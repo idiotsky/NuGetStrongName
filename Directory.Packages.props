@@ -1,0 +1,12 @@
+<Project>
+  <ItemGroup>
+    <PackageVersion Include="Mono.Cecil" Version="0.11.6" />
+    <PackageVersion Include="NuGet.Protocol" Version="8.0.0" />
+    <PackageVersion Include="NuGet.Credentials" Version="8.0.0" />
+    <!-- Transitive pin: NuGet.Packaging 8.0.0 brings a vulnerable System.Security.Cryptography.Pkcs 8.0.1. -->
+    <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="10.0.14" />
+    <PackageVersion Include="NUnit" Version="5.0.0" />
+    <PackageVersion Include="NUnit3TestAdapter" Version="6.3.1" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.12.0" />
+  </ItemGroup>
+</Project>
