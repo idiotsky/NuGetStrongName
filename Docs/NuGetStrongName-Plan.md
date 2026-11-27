@@ -1,6 +1,6 @@
 # NuGetStrongName — Implementation Plan
 
-Status: in progress
+Status: done
 Slice tag: `strongname`
 Delivery: Each slice requires acceptance checks, independent review, and an explicitly authorized commit containing
 implementation and both plan translations. Verified work awaiting commit stays `in progress`. This edit moves planning
@@ -17,7 +17,7 @@ authoritative; maintain its Chinese translation in the same change.
 
 | # | Outcome                                                            | Status      | Depends on |
 |---|--------------------------------------------------------------------|-------------|------------|
-| 1 | Generic cross-platform .NET CLI, signing, and package verification | in progress | None       |
+| 1 | Generic cross-platform .NET CLI, signing, and package verification | done        | None       |
 
 ### Slice 1 — Implement a Generic Cross-Platform .NET CLI
 
@@ -211,8 +211,7 @@ Verification (Windows 11 and Ubuntu 22.04, .NET SDK 11.0.100, 2026-11-21):
 - Unverified: Asset types of other custom packages (none named yet). Credential-provider plugins against an
   authenticated feed. Release publication.
 
-Resume: Request commit authorization for the slice (implementation, tests and both plan translations); optionally first
-get an independent review of the line-ending fix in `ManifestEditor.SaveXml`. After the commit, set Slice 1 to done.
+Resume: None; Slice 1 is done (commit `1483426`). Remaining work is in Carry-over.
 
 Carry-over:
 
@@ -225,6 +224,8 @@ Carry-over:
       and unsigned in others. Today this fails at the final verification.
     - L7: decide whether IVT friends in preserved assemblies need handling.
     - Add an Authenticode fixture for the removal warning.
+- Get an independent review of the line-ending fix in `ManifestEditor.SaveXml`, and re-run the Linux acceptance on the
+  committed code (see the 2026-11-26 record).
 
 ## Verification and Handoff Record
 
@@ -232,5 +233,10 @@ Migrated CLI development requirements from a consumer repository's plan; consume
 `Key/NuGetStrongName.snk` has been generated, import-validated, and committed with this plan. Preserve the existing key
 rather than regenerating it.
 
-2026-11-21: Slice 1 implemented and accepted on Windows and Linux (see Slice 1 Verification); uncommitted, awaiting
-commit authorization. Next action: Slice 1 Resume.
+2026-11-21: Slice 1 implemented and accepted on Windows and Linux (see Slice 1 Verification).
+
+2026-11-26: Slice 1 committed as `1483426` with explicit user authorization. Between the Linux acceptance run and the
+commit, the code got behavior-preserving cleanups: `m_` private-field naming, a `JIT.` root namespace, IDE
+reformatting, string interpolation, a closure-free test listener, a new `StringExtensions.cs` helper, and removal of the
+unused `AssemblyReferenceInfo.Version`/`Culture`. Windows `dotnet test` passed 55/55 on the committed code; Linux was
+not re-run. Slice 1 is done; next work is in Carry-over.

@@ -2,7 +2,7 @@
 
 本文为[英文权威计划](NuGetStrongName-Plan.md)的中文翻译，两份文档同步维护。
 
-Status: in progress
+Status: done
 Slice tag: `strongname`
 Delivery: 按切片完成验收及独立评审，经明确授权提交实现和双语计划；等待提交保持 `in progress`。本次仅迁移计划，不授权实施、提交或发布。
 
@@ -15,7 +15,7 @@ Delivery: 按切片完成验收及独立评审，经明确授权提交实现和�
 
 | # | 结果                              | Status      | 依赖 |
 |---|-----------------------------------|-------------|------|
-| 1 | 通用跨平台 .NET CLI、签名及包验证 | in progress | 无   |
+| 1 | 通用跨平台 .NET CLI、签名及包验证 | done        | 无   |
 
 ### Slice 1 — 实现通用跨平台 .NET CLI
 
@@ -162,8 +162,7 @@ Verification（Windows 11 与 Ubuntu 22.04，.NET SDK 11.0.100，2026-11-21）�
     - 比较结果所有字段一致，全部 149 个条目逐字节相同（0 个不同），依赖身份也一致。
 - 未验证：其他自制包的资产类型（尚未指定具体包）；凭据提供程序插件访问需认证的源；Release 发布。
 
-Resume：为本切片（实现、测试和两份计划译本）申请提交授权；也可以先请人独立评审 `ManifestEditor.SaveXml` 中的换行符修复。提交后将切片
-1 标记为完成。
+Resume：无；切片 1 已完成（提交 `1483426`），剩余工作见 Carry-over。
 
 Carry-over:
 
@@ -175,11 +174,16 @@ Carry-over:
     - L2：让规划器在签名前就识别出同名程序集在部分 TFM 中由厂商签名、在其他 TFM 中未签名的包；目前要到最终验证时才会失败。
     - L7：确定已保留程序集中的 IVT 友元是否需要处理。
     - 为 Authenticode 移除警告补充测试夹具。
+- 请人独立评审 `ManifestEditor.SaveXml` 中的换行符修复，并在已提交的代码上重新执行 Linux 验收（见 2026-11-26 的记录）。
 
 ## 验证与交接记录
 
 从消费仓库的升级计划迁入 CLI 开发要求，消费方工具退役留在原仓库。`Key/NuGetStrongName.snk`
 已生成、导入验证，并与本计划一同提交。保留已有密钥，不重新生成。
 
-2026-11-21：切片 1 已实现，并在 Windows 和 Linux 上通过验收（见切片 1 的 Verification）。改动尚未提交，正在等待提交授权。下一步：切片
-1 的 Resume。
+2026-11-21：切片 1 已实现，并在 Windows 和 Linux 上通过验收（见切片 1 的 Verification）。
+
+2026-11-26：经用户明确授权，切片 1 已提交为 `1483426`。在 Linux 验收和提交之间，代码做了不改变行为的整理：私有字段统一使用 `m_`
+前缀命名、根命名空间加 `JIT.` 前缀、IDE 重新排版、改用字符串插值、测试监听器去掉闭包、新增 `StringExtensions.cs`
+辅助类，以及删除未使用的 `AssemblyReferenceInfo.Version`/`Culture`。已提交的代码在 Windows 上 `dotnet test` 55/55 通过；未在 Linux
+上重新运行。切片 1 已完成，后续工作见 Carry-over。
